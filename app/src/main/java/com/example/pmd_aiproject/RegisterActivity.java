@@ -2,6 +2,7 @@ package com.example.pmd_aiproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.UserDB;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -52,6 +54,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Toast.makeText(RegisterActivity.this,"Usuario registrado con exito",Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromRegister);
+        returnFromRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volverDeRegistro=new Intent(RegisterActivity.this, MainActivity.class);
+                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                startActivity(volverDeRegistro);
             }
         });
 

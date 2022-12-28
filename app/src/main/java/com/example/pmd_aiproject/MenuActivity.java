@@ -8,12 +8,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromMenu);
+        returnFromRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volverDeRegistro=new Intent(MenuActivity.this, MainActivity.class);
+                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                startActivity(volverDeRegistro);
+            }
+        });
+
 
         Button textoAImg=findViewById(R.id.btn_pedir_texto);
         textoAImg.setOnClickListener(new View.OnClickListener() {

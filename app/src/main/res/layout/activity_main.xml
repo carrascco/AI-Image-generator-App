@@ -54,10 +54,10 @@
         android:text="¿No tienes cuenta? "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_main_login"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.102" />
 
     <CheckBox
         android:id="@+id/box_main_remember"
@@ -70,5 +70,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_txt_password_login"
         app:layout_constraintVertical_bias="0.59" />
+
+    <Button
+        android:id="@+id/btn_goRegister"
+        android:layout_width="136dp"
+        android:layout_height="37dp"
+        android:text="Registrate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toEndOf="@+id/id_txt_noTienesCuenta"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.687" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

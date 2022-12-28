@@ -75,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button goRegister= findViewById(R.id.btn_goRegister);
+        goRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent abrirRegistro=new Intent(MainActivity.this, RegisterActivity.class);
+                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                startActivity(abrirRegistro);
+            }
+        });
+
 
 
 

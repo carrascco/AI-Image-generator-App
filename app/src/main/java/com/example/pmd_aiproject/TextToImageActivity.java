@@ -2,9 +2,12 @@ package com.example.pmd_aiproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.pmd_aiproject.util.Response;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,6 +24,17 @@ public class TextToImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_image);
+
+        FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromText);
+        returnFromRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volverDeRegistro=new Intent(TextToImageActivity.this, MenuActivity.class);
+                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                startActivity(volverDeRegistro);
+            }
+        });
+
     }
 
     private static void postmanPostOpenAI(String prompt) {
