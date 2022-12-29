@@ -20,6 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db= DBHelper.DBfabric(RegisterActivity.this);
+
 
         //db=MainActivity.this.getDB();
         //(Busco recibir la misma database del login para que funcione)

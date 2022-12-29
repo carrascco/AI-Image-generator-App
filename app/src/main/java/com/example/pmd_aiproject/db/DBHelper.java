@@ -12,8 +12,17 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="openai.db";
     private static final int DATABASE_VERSION = 1;
 
+    private static DBHelper dbHelper;
+
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+
+    public static DBHelper DBfabric(@Nullable Context context) {
+        if(dbHelper==null)
+            dbHelper = new DBHelper(context);
+        return dbHelper;
     }
 
     @Override

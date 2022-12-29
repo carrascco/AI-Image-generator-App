@@ -5,17 +5,6 @@ public class User {
     private String username;
     private String password;
 
-    private String key;
-
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
 
     public String getUsername() {
         return username;
@@ -33,11 +22,10 @@ public class User {
         this.password = password;
     }
 
-    public User (String username, String password, String key){
+    public User (String username, String password){
 
         this.username=username;
         this.password=password;
-        this.key=key;
 
     }
 }

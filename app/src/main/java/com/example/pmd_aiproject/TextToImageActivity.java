@@ -67,8 +67,6 @@ public class TextToImageActivity extends AppCompatActivity {
                 json += line;
             }
             reader.close();
-
-
              Gson gson = new GsonBuilder().setPrettyPrinting().create();
              Response r = gson.fromJson(json, Response.class);
             // System.out.println(r);
