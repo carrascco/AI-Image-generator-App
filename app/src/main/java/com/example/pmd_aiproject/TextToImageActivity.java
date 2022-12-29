@@ -63,8 +63,9 @@ public class TextToImageActivity extends AppCompatActivity {
             }
         });
     }
-
-    private static void postmanPostOpenAI(String prompt) {
+    //Cambio de void a Response para recibir la url invocandole un getData al Response que devuelva
+    private static Response postmanPostOpenAI(String prompt) {
+        Response r=null;
         try {
             URL url = new URL("https://api.openai.com/v1/images/generations");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -89,11 +90,12 @@ public class TextToImageActivity extends AppCompatActivity {
             }
             reader.close();
              Gson gson = new GsonBuilder().setPrettyPrinting().create();
-             Response r = gson.fromJson(json, Response.class);
+             r = gson.fromJson(json, Response.class);
             // System.out.println(r);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return r;
     }
 }
