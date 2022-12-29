@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.pmd_aiproject.util.Response;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,8 +22,17 @@ import java.net.URL;
 
 public class TextToImageActivity extends AppCompatActivity {
 
+    public static final String NOMBRE_PARAMETRO_1="usuario:";
+    public static final String NOMBRE_PARAMETRO_2="key:";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent i=getIntent();
+
+        String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
+        String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_image);
 
@@ -30,11 +41,27 @@ public class TextToImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent volverDeRegistro=new Intent(TextToImageActivity.this, MenuActivity.class);
-                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                volverDeRegistro.putExtra(NOMBRE_PARAMETRO_1, username);
+                volverDeRegistro.putExtra(NOMBRE_PARAMETRO_2, userKey);
                 startActivity(volverDeRegistro);
             }
         });
 
+
+
+        Button generateImage =findViewById(R.id.btn_txt2img_generar);
+
+        generateImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // ejecutar peticion en Thread y cuando termine ejecutar updateView en el Thread principal y mandar notificacion de que la peticion ha terminado, con la imagen que esta ha generado
+
+
+                Toast.makeText(TextToImageActivity.this, "Peticion realizada, le llegara una notificacion cuando la imagen se haya generado",Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private static void postmanPostOpenAI(String prompt) {
@@ -51,13 +78,7 @@ public class TextToImageActivity extends AppCompatActivity {
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);
-            }/*
-            int responseStatus = conn.getResponseCode();
-            System.out.println(responseStatus);
-
-            String responseMessage = conn.getResponseMessage();
-            System.out.println(responseMessage);
-            */
+            }
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line = null;

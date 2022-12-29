@@ -45,4 +45,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.56"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btn_txt2img_generar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generar imagen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_txt_prompt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

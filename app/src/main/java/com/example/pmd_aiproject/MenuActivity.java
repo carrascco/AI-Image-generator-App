@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity {
     public static final String NOMBRE_PARAMETRO_1="usuario:";
+    public static final String NOMBRE_PARAMETRO_2="key:";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,8 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         Intent i=getIntent();
-        String user=i.getStringExtra(NOMBRE_PARAMETRO_1);
+        String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
+        String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);
 
 
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromMenu);
@@ -27,7 +29,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent volverDeRegistro=new Intent(MenuActivity.this, MainActivity.class);
-                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+
                 startActivity(volverDeRegistro);
             }
         });
@@ -38,17 +40,19 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent abrirTextoAImagen=new Intent(MenuActivity.this, TextToImageActivity.class);
-                //   abrirSegundaActividad.putExtra(NOMBRE_PARAMETRO_1, ((EditText)findViewById(R.id.txt_main_phone)).getText().toString());
+                abrirTextoAImagen.putExtra(NOMBRE_PARAMETRO_1, username);
+                abrirTextoAImagen.putExtra(NOMBRE_PARAMETRO_2, userKey);
                 startActivity(abrirTextoAImagen);
             }
         });
 
         Button imagenAImg=findViewById(R.id.btn_pedir_img);
-        textoAImg.setOnClickListener(new View.OnClickListener() {
+        imagenAImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent abrirImagenAImagen=new Intent(MenuActivity.this, ImageToImageActivity.class);
-                //   abrirSegundaActividad.putExtra(NOMBRE_PARAMETRO_1, ((EditText)findViewById(R.id.txt_main_phone)).getText().toString());
+                abrirImagenAImagen.putExtra(NOMBRE_PARAMETRO_1, username);
+                abrirImagenAImagen.putExtra(NOMBRE_PARAMETRO_2, userKey);
                 startActivity(abrirImagenAImagen);
             }
         });

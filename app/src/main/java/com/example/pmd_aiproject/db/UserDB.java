@@ -20,7 +20,8 @@ public class UserDB {
         if(c.moveToNext()){
             String username = c.getString(0);
             String password = c.getString(1);
-            res = new User(username, password);
+            String key = c.getString(2);
+            res = new User(username, password,key);
         }
         return res;
 
@@ -33,7 +34,8 @@ public class UserDB {
         while (c.moveToNext()){
             String pass = c.getString(1);
             String name = c.getString(0);
-            res.add(new User(name, pass));
+            String key = c.getString(2);
+            res.add(new User(name, pass,key));
         }
         return res;
     }
@@ -46,6 +48,9 @@ public class UserDB {
         values.put("access_key", key);
         values.put("password", password);
         long insertId = db.insert("user", null, values);
+
+
+
     }
 
 }

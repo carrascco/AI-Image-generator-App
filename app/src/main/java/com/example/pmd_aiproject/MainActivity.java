@@ -3,8 +3,8 @@ package com.example.pmd_aiproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,8 +16,6 @@ import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.UserDB;
 import com.example.pmd_aiproject.model.User;
 
-import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String NOMBRE_PARAMETRO_1="usuario:";
+    public static final String NOMBRE_PARAMETRO_2="key:";
+    private String NOMBRE_FICHERO_RECUERDAME ="pref_login" ;
+    private static final String ATRIB_LOGIN_USERNAME = "USERNAME";
+    private static final String ATRIB_LOGIN_PASSWORD = "PASSWORD";
 
 
     @Override
@@ -33,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new DBHelper(this);
+        SharedPreferences preferenciasLogin = getSharedPreferences(NOMBRE_FICHERO_RECUERDAME,MODE_PRIVATE);
+
+
+        String username = preferenciasLogin.getString(ATRIB_LOGIN_USERNAME,null);
+        String password = preferenciasLogin.getString(ATRIB_LOGIN_PASSWORD,null);
+
+        if (username!=null){
+            tryLogin(username,password,preferenciasLogin);
+        }
 
         Button loginButton = findViewById(R.id.btn_main_login);
 
@@ -47,31 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                User user = UserDB.getUserByName(db.getReadableDatabase(), username);
-                // si guardamos hash en lugar de contraseña cambiar contraseña por su hash
-
-                if(user!=null&&user.getUsername()!=null&&user.getPassword().equals(password)){
-                    CheckBox box = findViewById(R.id.box_main_remember);
-                    if(box.isActivated()){
-
-                        //TO-DO guardar datos en shared preferences
-                        Toast.makeText(MainActivity.this,"Checkbox activada",Toast.LENGTH_SHORT).show();
-                    }
-                    Toast.makeText(MainActivity.this,"Login con exito",Toast.LENGTH_SHORT).show();
-
-                    // Acceder a menu con key y usuario pasados como extras
-                    Intent abrirMenu=new Intent(MainActivity.this, MenuActivity.class);
-                    abrirMenu.putExtra(NOMBRE_PARAMETRO_1, username);
-                    startActivity(abrirMenu);
-                }else{
-                    List<User> list = UserDB.getAll(db.getReadableDatabase());
-                    for (int i = 0; i < list.size(); i++) {
-                        Log.i("db",list.get(i).getUsername()+" "+list.get(i).getPassword());
-                    }
-                    Log.i("db","mensaje");
-
-                    Toast.makeText(MainActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
-                }
+                tryLogin(username, password, preferenciasLogin);
 
             }
         });
@@ -85,6 +71,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(abrirRegistro);
             }
         });
+    }
+
+    private void tryLogin(String username, String password, SharedPreferences preferenciasLogin) {
+        User user = UserDB.getUserByName(db.getReadableDatabase(), username);
+        // si guardamos hash en lugar de contraseña cambiar contraseña por su hash
+
+        if(user!=null&&user.getUsername()!=null&&user.getPassword().equals(password)){
+            CheckBox box = findViewById(R.id.box_main_remember);
+            if(box.isChecked()){
+
+                //TO-DO guardar datos en shared preferences
+
+                SharedPreferences.Editor editor = preferenciasLogin.edit();
+                editor.putString(ATRIB_LOGIN_USERNAME, username);
+                editor.putString(ATRIB_LOGIN_PASSWORD, password);
+
+                editor.commit();
+            }
+            Toast.makeText(MainActivity.this,"Login con exito",Toast.LENGTH_SHORT).show();
+
+            // Acceder a menu con key y usuario pasados como extras
+            Intent abrirMenu=new Intent(MainActivity.this, MenuActivity.class);
+            abrirMenu.putExtra(NOMBRE_PARAMETRO_1, username);
+            String userKey=user.getKey();
+            abrirMenu.putExtra(NOMBRE_PARAMETRO_2, userKey);
+            startActivity(abrirMenu);
+        }else{
+            Toast.makeText(MainActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public DBHelper getDB(){
