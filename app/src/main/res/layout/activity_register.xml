@@ -34,30 +34,17 @@
       app:layout_constraintVertical_bias="0.224" />
 
   <EditText
-      android:id="@+id/id_txt_register_key"
-      android:layout_width="233dp"
-      android:layout_height="62dp"
-      android:ems="10"
-      android:hint="Key"
-      android:inputType="textPersonName"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/id_txt_register_name"
-      app:layout_constraintVertical_bias="0.05" />
-
-  <EditText
       android:id="@+id/id_register_txt_password1"
       android:layout_width="233dp"
       android:layout_height="62dp"
+      android:layout_marginBottom="424dp"
       android:ems="10"
       android:hint="Contraseña"
       android:inputType="textPassword"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/id_txt_register_key"
-      app:layout_constraintVertical_bias="0.05" />
+      app:layout_constraintTop_toBottomOf="@+id/id_txt_register_name" />
 
   <EditText
       android:id="@+id/id_register_txt_password2"

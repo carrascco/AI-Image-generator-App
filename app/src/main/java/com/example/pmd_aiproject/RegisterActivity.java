@@ -21,7 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        db = new DBHelper(this);
+        //db=MainActivity.this.getDB();
+        //(Busco recibir la misma database del login para que funcione)
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -34,26 +35,56 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String username = ((EditText)findViewById(R.id.id_txt_register_name)).getText().toString();
-                String key= ((EditText)findViewById(R.id.id_txt_register_key)).getText().toString();
                 String password1= ((EditText)findViewById(R.id.id_register_txt_password1)).getText().toString();
                 String password2= ((EditText)findViewById(R.id.id_register_txt_password2)).getText().toString();
 
+                if(username.equals("") ||password1.equals("") ||password2.equals("")){
+                    Toast.makeText(RegisterActivity.this,"Rellene todos los campos para el registro",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(UserDB.getUserByName(db.getReadableDatabase(),username)!=null){
+                        Toast.makeText(RegisterActivity.this,"Este usuario ya existe",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                    // el nombre de usuario no esta cogido
+                        int numCount=0;
+                        int capCount=0;
+                        int signCount=0;
+                        for (int x =0; x < password1.length(); x++) {
+                            if ((password1.charAt(x) >= 47 && password1.charAt(x) <= 58) || (password1.charAt(x) >= 64 && password1.charAt(x) <= 91) ||
+                                    (password1.charAt(x) >= 97 && password1.charAt(x) <= 122)) {
+                            }
+                            if ((password1.charAt(x) > 47 && password1.charAt(x) < 58)) { // Cuenta la cantidad de numero
+                                numCount ++;
+                            }
+                            if ((password1.charAt(x) > 64 && password1.charAt(x) < 91)) { // Cuenta la cantidad de mayuscula
+                                capCount ++;
+                            }
+                            if ((password1.charAt(x) > 32 && password1.charAt(x) < 48)) { // Cuenta la cantidad de caracteres especiales
+                                signCount ++;
+                            }
+                        } // Final del bucle
 
-                // el nombre de usuario no esta cogido
+                    if(password1.length()>10 || password1.length()<5 ||  signCount==0 || capCount==0 || numCount==0){
+                        Toast.makeText(RegisterActivity.this,"La contraseña debe tener entre 5 y 10 caracteres, incluyendo mayúsculas, números y caracteres especiales",
+                                Toast.LENGTH_LONG).show();
+                    }else{
+                    //password1 pasa un control de contraseña, longitud maxima, caracteres especiales ...
+                    if(!(password1.equals(password2))){
+                        Toast.makeText(RegisterActivity.this,"Las contraseñas no coinciden",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
 
-                // key no esta vacio o tiene longitud indicada (si hay una definida)
+                    //password2 es igual a password1
 
-                //password1 pasa un control de contraseña, longitud maxima, caracteres especiales ...
+                    // guardar contraseña o hash de contraseña?
+                    // si se guarda hash podria añadirse la opcion de recuperar contraseña enviando una al correo
 
-                //password2 es igual a password1
+                    UserDB.postUser(db.getWritableDatabase(), username, password1, "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");
 
-                // guardar contraseña o hash de contraseña?
-                // si se guarda hash podria añadirse la opcion de recuperar contraseña enviando una al correo
-
-                UserDB.postUser(db.getWritableDatabase(),username, password1, key);
-
-                Toast.makeText(RegisterActivity.this,"Usuario registrado con exito",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(RegisterActivity.this, "Usuario registrado con exito", Toast.LENGTH_SHORT).show();
+                }}}}
             }
         });
 

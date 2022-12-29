@@ -71,16 +71,17 @@
         app:layout_constraintTop_toBottomOf="@+id/id_txt_password_login"
         app:layout_constraintVertical_bias="0.59" />
 
-    <Button
-        android:id="@+id/btn_goRegister"
-        android:layout_width="136dp"
-        android:layout_height="37dp"
-        android:text="Registrate"
+    <TextView
+        android:id="@+id/id_txt_goRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Regístrate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toEndOf="@+id/id_txt_noTienesCuenta"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+        app:layout_constraintVertical_bias="0.681" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

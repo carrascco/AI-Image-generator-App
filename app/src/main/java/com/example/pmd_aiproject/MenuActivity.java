@@ -11,11 +11,18 @@ import android.widget.EditText;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity {
+    public static final String NOMBRE_PARAMETRO_1="usuario:";
+    public static final String NOMBRE_PARAMETRO_2="key:";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Intent i=getIntent();
+        String user=i.getStringExtra(NOMBRE_PARAMETRO_1);
+        String userKey=i.getStringExtra(NOMBRE_PARAMETRO_2);
+
 
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromMenu);
         returnFromRegister.setOnClickListener(new View.OnClickListener() {

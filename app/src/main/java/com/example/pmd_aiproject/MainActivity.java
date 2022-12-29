@@ -70,17 +70,24 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Login con exito",Toast.LENGTH_SHORT).show();
 
                     // Acceder a menu con key y usuario pasados como extras
+                    Intent abrirMenu=new Intent(MainActivity.this, MenuActivity.class);
+                    abrirMenu.putExtra(NOMBRE_PARAMETRO_1, username);
+                    String userKey=user.getKey();
+                    abrirMenu.putExtra(NOMBRE_PARAMETRO_2, userKey);
+                    startActivity(abrirMenu);
+                }else{
+                    Toast.makeText(MainActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        Button goRegister= findViewById(R.id.btn_goRegister);
+        TextView goRegister= findViewById(R.id.id_txt_goRegister);
         goRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent abrirRegistro=new Intent(MainActivity.this, RegisterActivity.class);
-                //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+
                 startActivity(abrirRegistro);
             }
         });
@@ -91,5 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public DBHelper getDB(){
+        return this.db;
     }
 }
