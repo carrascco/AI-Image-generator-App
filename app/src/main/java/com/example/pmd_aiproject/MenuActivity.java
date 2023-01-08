@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.pmd_aiproject.util.NetUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity {
@@ -18,7 +19,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
         Intent i=getIntent();
         String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
         String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);

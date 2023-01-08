@@ -34,4 +34,6 @@ public class NetUtil {
         Bitmap bmp=    BitmapFactory.decodeStream(connection.getInputStream());
         return bmp;
     }
+
+
 }
