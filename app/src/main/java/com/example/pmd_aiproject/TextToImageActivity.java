@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.pmd_aiproject.util.Response;
+import com.example.pmd_aiproject.util.TextToImageDownloadThread;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,16 +27,21 @@ public class TextToImageActivity extends AppCompatActivity {
     public static final String NOMBRE_PARAMETRO_1="usuario:";
     public static final String NOMBRE_PARAMETRO_2="key:";
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_text_to_image);
 
         Intent i=getIntent();
 
         String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
         String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_to_image);
 
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromText);
         returnFromRegister.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +61,11 @@ public class TextToImageActivity extends AppCompatActivity {
         generateImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EditText txt = findViewById(R.id.id_txt_prompt);
                 // ejecutar peticion en Thread y cuando termine ejecutar updateView en el Thread principal y mandar notificacion de que la peticion ha terminado, con la imagen que esta ha generado
-
+                TextToImageDownloadThread txt2imgPet = new TextToImageDownloadThread(TextToImageActivity.this,txt.getText().toString(),username);
+                Thread th = new Thread(txt2imgPet);
+                th.start();
 
                 Toast.makeText(TextToImageActivity.this, "Peticion realizada, le llegara una notificacion cuando la imagen se haya generado",Toast.LENGTH_SHORT).show();
 
@@ -97,5 +106,9 @@ public class TextToImageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return r;
+    }
+
+    public void prepareForRequest() {
+
     }
 }

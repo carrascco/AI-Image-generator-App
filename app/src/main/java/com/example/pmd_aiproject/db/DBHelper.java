@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="openai.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     private static DBHelper dbHelper;
 
@@ -31,6 +31,10 @@ public class DBHelper extends SQLiteOpenHelper {
         //TO-DO Añadir las distintas relaciones que haya, de momento solo nos hace falta imagen creada por usuario
 
         sqLiteDatabase.execSQL("CREATE TABLE user (_name TEXT, password TEXT, access_key TEXT, PRIMARY KEY (_name))");
+
+        sqLiteDatabase.execSQL("CREATE TABLE image (_id INTEGER PRIMARY KEY AUTOINCREMENT,user_name TEXT, prompt TEXT, fecha TEXT,  image BLOB," +
+                "FOREIGN KEY(user_name) REFERENCES user(_name))");
+
     }
 
     @Override

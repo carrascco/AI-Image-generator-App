@@ -57,6 +57,20 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        Button historial=findViewById(R.id.btn_menu_historial);
+        historial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent abrirImagenAImagen=new Intent(MenuActivity.this, HistorialActivity.class);
+                abrirImagenAImagen.putExtra(NOMBRE_PARAMETRO_1, username);
+                abrirImagenAImagen.putExtra(NOMBRE_PARAMETRO_2, userKey);
+                startActivity(abrirImagenAImagen);
+            }
+        });
+
+
+
+
 
     }
 }
