@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.pmd_aiproject.model.Image;
 import com.example.pmd_aiproject.model.User;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,6 +36,13 @@ public class ImageDB {
 
     }
 
+/*    public Image getImageByDate(SQLiteDatabase db, Date d){
+        String query = "SELECT * FROM image WHERE fecha = ?";
+        Cursor c = db.rawQuery(query, new String[]{""+d});
+        byte[] image =c.getBlob(4);
+        return
+    }
+*/
     public static List<Image> getAll(SQLiteDatabase db){
         String query = "SELECT * FROM image";
         Cursor c = db.rawQuery(query,null);
@@ -50,7 +58,7 @@ public class ImageDB {
         return res;
     }
 
-    public static void postImage(SQLiteDatabase db,String user_name,String prompt,String fecha, byte[] image) {
+    public static int postImage(SQLiteDatabase db,String user_name,String prompt,String fecha, byte[] image) {
 
         ContentValues values = new ContentValues();
 
@@ -58,10 +66,17 @@ public class ImageDB {
         values.put("prompt", prompt);
         values.put("fecha", fecha);
         values.put("image", image);
-        long insertId = db.insert("image", null, values);
+        int insertId = (int) db.insert("image", null, values);
 
+        return insertId;
 
+    }
 
+    public static byte[] getBlobById(SQLiteDatabase db, int id){
+        String query = "SELECT * FROM image WHERE _id =?";
+        Cursor c = db.rawQuery(query, new String[]{""+id});
+        byte[] image = c.getBlob(4);
+        return image;
     }
 
 }

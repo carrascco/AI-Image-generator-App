@@ -27,7 +27,7 @@ public class TextToImageActivity extends AppCompatActivity {
     public static final String NOMBRE_PARAMETRO_1="usuario:";
     public static final String NOMBRE_PARAMETRO_2="key:";
 
-
+    public static int counter=0;
 
 
     @Override
@@ -63,7 +63,7 @@ public class TextToImageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText txt = findViewById(R.id.id_txt_prompt);
                 // ejecutar peticion en Thread y cuando termine ejecutar updateView en el Thread principal y mandar notificacion de que la peticion ha terminado, con la imagen que esta ha generado
-                TextToImageDownloadThread txt2imgPet = new TextToImageDownloadThread(TextToImageActivity.this,txt.getText().toString(),username);
+                TextToImageDownloadThread txt2imgPet = new TextToImageDownloadThread(TextToImageActivity.this,txt.getText().toString(),username, TextToImageActivity.this);
                 Thread th = new Thread(txt2imgPet);
                 th.start();
 

@@ -1,9 +1,13 @@
 package com.example.pmd_aiproject.util;
 
+import android.app.Notification;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.example.pmd_aiproject.MainActivity;
 import com.example.pmd_aiproject.TextToImageActivity;
@@ -11,6 +15,8 @@ import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.ImageDB;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -28,7 +34,11 @@ public class TextToImageDownloadThread implements Runnable {
     private String prompt;
     private String username;
 
-    public TextToImageDownloadThread(TextToImageActivity act,String prompt, String username){ this.act=act;  this.prompt=prompt; this.username = username;}
+    public static DBHelper db;
+
+    NotificationHandler handler;
+
+    public TextToImageDownloadThread(TextToImageActivity act,String prompt, String username, Context ctx){ this.act=act;  this.prompt=prompt; this.username = username; this.handler = new NotificationHandler(ctx);}
     public void run(){
 
         act.runOnUiThread(new Runnable() {
@@ -39,21 +49,30 @@ public class TextToImageDownloadThread implements Runnable {
         });
         Response r = NetUtil.generateImagePet(prompt);
 
+
         try {
             Bitmap imagenGenerada = NetUtil.getURLBitmap(r.getData());
             ByteArrayOutputStream baos = new ByteArrayOutputStream(20480);
             imagenGenerada.compress(Bitmap.CompressFormat.PNG, 0 , baos);
 
-            DBHelper db= DBHelper.DBfabric(act.getApplicationContext());
-            ImageDB.postImage(db.getWritableDatabase(),username,prompt,getDateTime(),baos.toByteArray());
 
+             db= DBHelper.DBfabric(act.getApplicationContext());
+            int idImagen=ImageDB.postImage(db.getWritableDatabase(),username,prompt,getDateTime(),baos.toByteArray());
+
+            sendNotification(true,idImagen);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendNotification (boolean priority, int idImagen) {
+        Notification.Builder res = handler.createNotification("Imagen generada correctamente, "+this.username, this.prompt, priority, idImagen);
+        handler.getManager().notify(TextToImageActivity.counter++, res.build());
+        //handler.createGroup(priority);
 
+    }
 
 
     private String getDateTime() {

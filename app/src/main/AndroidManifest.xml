@@ -17,6 +17,9 @@
         android:theme="@style/Theme.PMD_AIProject"
         tools:targetApi="31">
         <activity
+            android:name=".ImageShowActivity"
+            android:exported="false" />
+        <activity
             android:name=".HistorialActivity"
             android:exported="false" />
         <activity
