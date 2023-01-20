@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 
@@ -57,12 +56,12 @@ public class NotificationHandler extends ContextWrapper {
         getManager().createNotificationChannel(canalB);
     }
 
-    public Notification.Builder createNotification (String title, String msg, boolean priority, int idImage) {
+    public Notification.Builder createNotification (String title, String msg, boolean priority, int idImage, String prompt, String username) {
        //if (Build.VERSION.SDK_INT>=26) {
             if (priority) {
-                 return createNotificationChannels(title, msg, highChannelID, idImage);
+                 return createNotificationChannels(title, msg, highChannelID, idImage, prompt, username);
             } else {
-                  return createNotificationChannels(title, msg, lowChannelID, idImage);
+                  return createNotificationChannels(title, msg, lowChannelID, idImage, prompt, username);
             }
             // } else
             //return createNotificationWithoutChannels(title, msg);
@@ -70,13 +69,16 @@ public class NotificationHandler extends ContextWrapper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private Notification.Builder createNotificationChannels (String title, String msg, String channel, int idImage) {
+    private Notification.Builder createNotificationChannels (String title, String msg, String channel, int idImage, String prompt, String username) {
 
 
         // Creamos el intent que va a lanzar el NewActivity
         Intent intent = new Intent(this, ImageShowActivity.class);
         // Añadimos los valores de title y msg en el intent
         intent.putExtra("Image", idImage);
+        intent.putExtra("prompt", prompt);
+        intent.putExtra("username:", username);
+
 
         //startActivity(intent);
         //intent.putExtra("Image", image);
@@ -85,7 +87,7 @@ public class NotificationHandler extends ContextWrapper {
         // NEW TASK Y CLEAR TASK para evitar volver a la aplication si no estuviera abierta
         intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
         // Creamos el pendingintent
-        PendingIntent pit = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pit = PendingIntent.getActivity(this, idImage, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Crear Action
         Icon icon = Icon.createWithResource(this, R.drawable.ic_launcher_background);
@@ -114,7 +116,7 @@ public class NotificationHandler extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(msg);
     }
-
+*/
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createGroup (boolean priority) {
         String canal = highChannelID;
@@ -126,7 +128,7 @@ public class NotificationHandler extends ContextWrapper {
                 .setSmallIcon(R.drawable.ic_launcher_foreground).build();
         getManager().notify(groupID,grupo);
     }
-*/
+
 
 
 

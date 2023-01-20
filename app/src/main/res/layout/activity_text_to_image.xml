@@ -22,8 +22,8 @@
 
     <EditText
         android:id="@+id/id_txt_prompt"
-        android:layout_width="0dp"
-        android:layout_height="53dp"
+        android:layout_width="327dp"
+        android:layout_height="59dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
@@ -33,27 +33,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.778" />
-
-    <ImageView
-        android:id="@+id/id_img_fromTxt"
-        android:layout_width="364dp"
-        android:layout_height="364dp"
-        app:layout_constraintBottom_toTopOf="@+id/id_txt_prompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.47" />
 
     <Button
         android:id="@+id/btn_txt2img_generar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="202dp"
+        android:layout_height="63dp"
         android:text="Generar imagen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_txt_prompt" />
+        app:layout_constraintTop_toBottomOf="@+id/id_txt_prompt"
+        app:layout_constraintVertical_bias="0.387" />
 </androidx.constraintlayout.widget.ConstraintLayout>

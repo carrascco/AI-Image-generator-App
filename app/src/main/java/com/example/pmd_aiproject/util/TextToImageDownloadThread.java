@@ -68,9 +68,9 @@ public class TextToImageDownloadThread implements Runnable {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void sendNotification (boolean priority, int idImagen) {
-        Notification.Builder res = handler.createNotification("Imagen generada correctamente, "+this.username, this.prompt, priority, idImagen);
-        handler.getManager().notify(TextToImageActivity.counter++, res.build());
-        //handler.createGroup(priority);
+        Notification.Builder res = handler.createNotification("Imagen generada correctamente, "+this.username, this.prompt, priority, idImagen, this.prompt, username);
+        handler.getManager().notify(idImagen, res.build());
+        handler.createGroup(priority);
 
     }
 

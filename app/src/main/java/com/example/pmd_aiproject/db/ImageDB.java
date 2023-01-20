@@ -23,7 +23,7 @@ public class ImageDB {
 
         List<Image> res = new LinkedList<Image>();
 
-        if(c.moveToNext()){
+        while(c.moveToNext()){
             Integer id = c.getInt(0);
             String user_name = c.getString(1);
             String prompt = c.getString(2);
@@ -75,6 +75,7 @@ public class ImageDB {
     public static byte[] getBlobById(SQLiteDatabase db, int id){
         String query = "SELECT * FROM image WHERE _id =?";
         Cursor c = db.rawQuery(query, new String[]{""+id});
+        c.moveToNext();
         byte[] image = c.getBlob(4);
         return image;
     }

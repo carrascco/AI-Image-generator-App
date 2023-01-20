@@ -31,6 +31,7 @@
                     android:id="@+id/txt_image_row_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -38,6 +39,7 @@
                     android:id="@+id/txt_image_row_propmt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:paddingLeft="10dp"
                     android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
@@ -46,6 +48,7 @@
                     android:id="@+id/txt_image_row_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:paddingLeft="10dp"
                     android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
@@ -54,19 +57,21 @@
                     android:id="@+id/txt_image_row_fecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:paddingLeft="10dp"
                     android:text="TextView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_image_row_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:alpha="0.8"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/iv_image_row_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:alpha="0.8"
-                tools:srcCompat="@tools:sample/avatars" />
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -22,11 +22,27 @@
 
     <ImageView
         android:id="@+id/id_img_shown"
-        android:layout_width="270dp"
-        android:layout_height="267dp"
+        android:layout_width="343dp"
+        android:layout_height="340dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312"
         tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/id_txt_descrip_image"
+        android:layout_width="338dp"
+        android:layout_height="140dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_img_shown"
+        app:layout_constraintVertical_bias="0.304" />
 </androidx.constraintlayout.widget.ConstraintLayout>
