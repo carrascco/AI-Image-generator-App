@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.ImageDB;
 import com.example.pmd_aiproject.util.TextToImageDownloadThread;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,13 +27,16 @@ public class ImageShowActivity extends AppCompatActivity {
         String prompt=i.getStringExtra("prompt");
         String username=i.getStringExtra("username:");
 
-        byte[] imageRes= ImageDB.getBlobById(TextToImageDownloadThread.db.getReadableDatabase(),idImagen);
+        byte[] imageRes= ImageDB.getBlobById(DBHelper.DBfabric(ImageShowActivity.this.getApplicationContext()).getReadableDatabase(),idImagen);
         ImageView img= (ImageView) findViewById(R.id.id_img_shown);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageRes, 0, imageRes.length);
         img.setImageBitmap(bitmap);
         TextView txtDesc=findViewById(R.id.id_txt_descrip_image);
-        txtDesc.setText("Descripcion: \""+ prompt+"\"");
-
+        if(!prompt.isEmpty())
+            txtDesc.setText("Descripcion: \""+ prompt+"\"");
+        else{
+            txtDesc.setText("Imagen modificada");
+        }
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromImageShow);
         returnFromRegister.setOnClickListener(new View.OnClickListener() {
 
