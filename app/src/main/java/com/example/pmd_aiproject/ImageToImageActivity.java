@@ -2,9 +2,13 @@ package com.example.pmd_aiproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -76,19 +80,21 @@ public class ImageToImageActivity extends AppCompatActivity {
         pet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ContextCompat.checkSelfPermission(ImageToImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+                    ImageToImageDownloadThread img2imgPet = new ImageToImageDownloadThread(ImageToImageActivity.this,bitmap,username, ImageToImageActivity.this);
+                    Thread th = new Thread(img2imgPet);
+                    th.start();
 
-                // ejecutar peticion en Thread y cuando termine ejecutar updateView en el Thread principal y mandar notificacion de que la peticion ha terminado, con la imagen que esta ha generado
-                ImageToImageDownloadThread img2imgPet = new ImageToImageDownloadThread(ImageToImageActivity.this,bitmap,username, ImageToImageActivity.this);
-                Thread th = new Thread(img2imgPet);
-                th.start();
-
-                Toast.makeText(ImageToImageActivity.this, "Peticion realizada, le llegara una notificacion cuando la imagen se haya generado",Toast.LENGTH_SHORT).show();
-
-
-
-
+                    Toast.makeText(ImageToImageActivity.this, "Peticion realizada, le llegara una notificacion cuando la imagen se haya generado",Toast.LENGTH_SHORT).show();
+                }else{
+                    ActivityCompat.requestPermissions(ImageToImageActivity.this,
+                            new String[]{
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+                }
 
             }
+
+
         });
     }
 

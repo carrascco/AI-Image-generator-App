@@ -74,10 +74,10 @@ public class ImageToImageDownloadThread implements Runnable {
             fOut = new FileOutputStream(file);
 
 
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
             fOut.flush();
             fOut.close();
-
+            bitmap.compress(Bitmap.CompressFormat.PNG,90,new FileOutputStream(file));
             Response r = NetUtil.generateImagePet(file);
 
 
@@ -109,15 +109,15 @@ public class ImageToImageDownloadThread implements Runnable {
         Random generator = new Random();
         int n = 10000;
         n = generator.nextInt(n);
-        String fname = "Image-"+ n+".jpeg";
-        File file = new File(path, fname+".jpeg");
+        String fname = "Image-"+ n+".png";
+        File file = new File(path, fname);
         try {
             fOut = new FileOutputStream(file);
 
 
             fOut.flush();
             fOut.close();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,90,new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.PNG,90,new FileOutputStream(file));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
