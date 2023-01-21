@@ -1,10 +1,13 @@
 package com.example.pmd_aiproject.util;
 
+import static android.os.Environment.getExternalStorageDirectory;
+
 import android.app.Notification;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
+import android.os.FileUtils;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -21,13 +24,21 @@ import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class ImageToImageDownloadThread implements Runnable {
 
@@ -48,22 +59,71 @@ public class ImageToImageDownloadThread implements Runnable {
                 act.prepareForRequest();
             }
         });
-        Response r = NetUtil.generateImagePet(bitmap);
+        try{
 
 
-        try {
-            Bitmap imagenGenerada = NetUtil.getURLBitmap(r.getData());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream(20480);
-            imagenGenerada.compress(Bitmap.CompressFormat.PNG, 0 , baos);
+            Random generator = new Random();
+            int n = 10000;
+            n = generator.nextInt(n);
+            String fname = "Image-"+ n+".jpeg";
+
+            String path = getExternalStorageDirectory().toString();
+            OutputStream fOut = null;
+            Integer counter = 0;
+            File file = new File(path, fname);
+            fOut = new FileOutputStream(file);
 
 
-            db= DBHelper.DBfabric(act.getApplicationContext());
-            int idImagen=ImageDB.postImage(db.getWritableDatabase(),username,"",getDateTime(),baos.toByteArray());
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+            fOut.flush();
+            fOut.close();
 
-            sendNotification(true,idImagen);
-        } catch (Exception e) {
+            Response r = NetUtil.generateImagePet(file);
+
+
+            try {
+                Bitmap imagenGenerada = NetUtil.getURLBitmap(r.getData());
+                ByteArrayOutputStream baos = new ByteArrayOutputStream(20480);
+                imagenGenerada.compress(Bitmap.CompressFormat.PNG, 0 , baos);
+
+
+                db= DBHelper.DBfabric(act.getApplicationContext());
+                int idImagen=ImageDB.postImage(db.getWritableDatabase(),username,"",getDateTime(),baos.toByteArray());
+
+                sendNotification(true,idImagen);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
+
+
+
+
+
+        String path = getExternalStorageDirectory().toString();
+        OutputStream fOut = null;
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Image-"+ n+".jpeg";
+        File file = new File(path, fname+".jpeg");
+        try {
+            fOut = new FileOutputStream(file);
+
+
+            fOut.flush();
+            fOut.close();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,90,new FileOutputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
 
     }

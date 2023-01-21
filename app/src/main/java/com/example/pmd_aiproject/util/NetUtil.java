@@ -8,9 +8,12 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -81,58 +84,31 @@ public class NetUtil {
     }
 
 
-    public static Response generateImagePet(Bitmap bitmap) {
+    public static Response generateImagePet(File file) {
         Response r=null;
         try {
 
-            String attachmentName = "image";
-            String attachmentFileName = "bitmap.bmp";
-            String crlf = "\r\n";
-            String twoHyphens = "--";
-            String boundary =  "*****";
-
             URL url = new URL("https://api.openai.com/v1/images/variations");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestProperty("Authorization","Bearer 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");
+
+            String boundary = "*****";
             conn.setRequestMethod("POST");
-            conn.addRequestProperty("Authorization", "Bearer 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");
-            //conn.addRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
-
-            conn.setRequestProperty(
-                    "Content-Type", "multipart/form-data;boundary=" + boundary);
-
+            DataOutputStream request = new DataOutputStream(conn.getOutputStream());
 
 
 
-            DataOutputStream request = new DataOutputStream(
-                    conn.getOutputStream());
+            request.writeBytes("--" + boundary + "\r\n");
+            request.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"" + file.getName() + "\"\r\n\r\n");
+            request.write(FileUtils.readFileToByteArray(file));
+            request.writeBytes("\r\n");
 
-            request.writeBytes(twoHyphens + boundary + crlf);
-            request.writeBytes("Content-Disposition: form-data; name=\"" +
-                    attachmentName + "\";filename=\"" +
-                    attachmentFileName + "\"" + crlf);
-            request.writeBytes(crlf);
-
-            byte[] pixels = new byte[bitmap.getWidth() * bitmap.getHeight()];
-            for (int i = 0; i < bitmap.getWidth(); ++i) {
-                for (int j = 0; j < bitmap.getHeight(); ++j) {
-
-                    pixels[i + j] = (byte) ((bitmap.getPixel(i, j) & 0x80) >> 7);
-                }
-            }
-
-            request.write(pixels);
-
-            request.writeBytes(crlf);
-            request.writeBytes(twoHyphens + boundary +
-                    twoHyphens + crlf);
-
+            request.writeBytes("--" + boundary + "--\r\n");
             request.flush();
-            request.close();
-
-
 
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
