@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class ImageToImageActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
 
     public static Bitmap bitmap;
+    public static Bitmap bmpShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,19 @@ public class ImageToImageActivity extends AppCompatActivity {
         String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
         String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);
 
-
+        Uri sharedImage=i.getParcelableExtra("shared");
+        ImageView img=findViewById(R.id.iv_img2img_image);
+        if(sharedImage!=null){
+            InputStream inputStream = null;
+            try {
+                inputStream = getContentResolver().openInputStream(sharedImage);
+                Bitmap bmp = BitmapFactory.decodeStream(inputStream);
+                this.bitmap=bmp;
+                img.setImageBitmap(bmp);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Button imagen = findViewById(R.id.btn_img2img_load_image);
         imagen.setOnClickListener(new View.OnClickListener() {

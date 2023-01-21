@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmd_aiproject.util.Response;
@@ -43,6 +44,11 @@ public class TextToImageActivity extends AppCompatActivity {
         String username = i.getStringExtra(NOMBRE_PARAMETRO_1);
         String userKey = i.getStringExtra(NOMBRE_PARAMETRO_2);
 
+        String sharedTxt=i.getStringExtra("shared");
+        if(sharedTxt!=null){
+            TextView txt=findViewById(R.id.id_txt_prompt);
+            txt.setText(sharedTxt);
+        }
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromText);
         returnFromRegister.setOnClickListener(new View.OnClickListener() {
             @Override

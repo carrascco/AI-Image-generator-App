@@ -29,7 +29,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent volverDeRegistro=new Intent(MenuActivity.this, MainActivity.class);
-
+                MainActivity.returnedFromMenu=true;
                 startActivity(volverDeRegistro);
             }
         });

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,23 +29,25 @@ public class MainActivity extends AppCompatActivity {
     private static final String ATRIB_LOGIN_USERNAME = "USERNAME";
     private static final String ATRIB_LOGIN_PASSWORD = "PASSWORD";
 
+    private Intent i;
+    public static boolean returnedFromMenu=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db= DBHelper.DBfabric(MainActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        i=getIntent();
 
         SharedPreferences preferenciasLogin = getSharedPreferences(NOMBRE_FICHERO_RECUERDAME,MODE_PRIVATE);
 
 
         String username = preferenciasLogin.getString(ATRIB_LOGIN_USERNAME,null);
         String password = preferenciasLogin.getString(ATRIB_LOGIN_PASSWORD,null);
-
-        if (username!=null){
+        if (username!=null && !returnedFromMenu){
             tryLogin(username,password,preferenciasLogin);
         }
-
+        returnedFromMenu=false;
         Button loginButton = findViewById(R.id.btn_main_login);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +92,39 @@ public class MainActivity extends AppCompatActivity {
 
                 editor.commit();
             }
-            Toast.makeText(MainActivity.this,"Login con exito",Toast.LENGTH_SHORT).show();
 
-            // Acceder a menu con key y usuario pasados como extras
-            Intent abrirMenu=new Intent(MainActivity.this, MenuActivity.class);
-            abrirMenu.putExtra(NOMBRE_PARAMETRO_1, username);
-            String userKey=user.getKey();
-            abrirMenu.putExtra(NOMBRE_PARAMETRO_2, userKey);
-            startActivity(abrirMenu);
+            String action=i.getAction();
+            String type = i.getType();
+            if(Intent.ACTION_SEND.equals(action) && type != null) {
+                if("text/plain".equals(type)) {
+                    // Es comparticion de texto
+                    Intent abrirTexto=new Intent(MainActivity.this, TextToImageActivity.class);
+                    abrirTexto.putExtra(NOMBRE_PARAMETRO_1, username);
+                    String userKey=user.getKey();
+                    abrirTexto.putExtra(NOMBRE_PARAMETRO_2, userKey);
+                    String sharedText=i.getStringExtra(Intent.EXTRA_TEXT);
+                    abrirTexto.putExtra("shared",sharedText);
+                    startActivity(abrirTexto);
+                }else if(type.startsWith("image/")) {
+                    // Es comparticion de imagen
+                    Intent abrirImage=new Intent(MainActivity.this, ImageToImageActivity.class);
+                    abrirImage.putExtra(NOMBRE_PARAMETRO_1, username);
+                    String userKey=user.getKey();
+                    abrirImage.putExtra(NOMBRE_PARAMETRO_2, userKey);
+                    Uri sharedImage=i.getParcelableExtra(Intent.EXTRA_STREAM);
+                    abrirImage.putExtra("shared",sharedImage);
+                    startActivity(abrirImage);
+                }
+            }else{
+                // Acceder a menu con key y usuario pasados como extras
+                Intent abrirMenu=new Intent(MainActivity.this, MenuActivity.class);
+                abrirMenu.putExtra(NOMBRE_PARAMETRO_1, username);
+                String userKey=user.getKey();
+                abrirMenu.putExtra(NOMBRE_PARAMETRO_2, userKey);
+                Toast.makeText(MainActivity.this,"Login con exito",Toast.LENGTH_SHORT).show();
+                startActivity(abrirMenu);
+            }
+
         }else{
             Toast.makeText(MainActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
         }
