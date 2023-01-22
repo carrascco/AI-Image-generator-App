@@ -96,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent volverDeRegistro=new Intent(RegisterActivity.this, MainActivity.class);
                 //abrirSegundaActividad.putExtra("NOMBRE_PARAMETRO_1", "texto");
+                MainActivity.returnedFromMenu=true;
                 startActivity(volverDeRegistro);
             }
         });

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PMD_AIProject</string>
+    <string name="app_name">PixelAI</string>
     <string name="generar_imagen_a_partir_de_texto">Generar imagen a partir de texto</string>
     <string name="escriba_una_descripci_n_detallada">Escriba una descripción detallada</string>
     <string name="generar_imagen">Generar imagen</string>
