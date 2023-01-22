@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.ImageDB;
-import com.example.pmd_aiproject.util.TextToImageDownloadThread;
+import com.example.pmd_aiproject.util.DownloadTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Random;
 
 public class ImageShowActivity extends AppCompatActivity {
 
@@ -37,6 +39,22 @@ public class ImageShowActivity extends AppCompatActivity {
         else{
             txtDesc.setText("Imagen modificada");
         }
+        FloatingActionButton downloadBtn=findViewById(R.id.btn_download_image);
+        downloadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Nombre del archivo de la imagen descargada
+                String fileName = "image"+(new Random().nextInt(100)+1)+".jpg";
+                // Directorio donde se guardará la imagen descargada
+                String directory = "images";
+                // Bitmap que deseas descargar
+
+                // Crea una nueva tarea para descargar el bitmap
+                new DownloadTask(ImageShowActivity.this, bitmap, fileName, directory);
+            }
+        });
+
+
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromImageShow);
         returnFromRegister.setOnClickListener(new View.OnClickListener() {
 
