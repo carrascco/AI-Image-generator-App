@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.example.pmd_aiproject.util.NetUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity {
@@ -35,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
 
-        Button textoAImg=findViewById(R.id.btn_pedir_texto);
+        Button textoAImg=findViewById(R.id.btn_menu_pedir_texto);
         textoAImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +44,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        Button imagenAImg=findViewById(R.id.btn_pedir_img);
+        Button imagenAImg=findViewById(R.id.btn_menu_pedir_img);
         imagenAImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

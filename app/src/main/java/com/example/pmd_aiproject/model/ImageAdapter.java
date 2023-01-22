@@ -1,6 +1,8 @@
 package com.example.pmd_aiproject.model;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.pmd_aiproject.ImageShowActivity;
 import com.example.pmd_aiproject.R;
 
 import java.util.ArrayList;
@@ -59,6 +62,8 @@ public class ImageAdapter extends BaseAdapter {
 
         TextView tv3 = view.findViewById(R.id.txt_image_row_user);
         tv3.setText("user: "+data.get(i).getUser_name());
+
+
 
         return view;
     }

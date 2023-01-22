@@ -36,9 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String username = ((EditText)findViewById(R.id.id_txt_register_name)).getText().toString();
-                String password1= ((EditText)findViewById(R.id.id_register_txt_password1)).getText().toString();
-                String password2= ((EditText)findViewById(R.id.id_register_txt_password2)).getText().toString();
+                String username = ((EditText)findViewById(R.id.txt_register_name)).getText().toString();
+                String password1= ((EditText)findViewById(R.id.txt_register_password)).getText().toString();
+                String password2= ((EditText)findViewById(R.id.txt_register_repeat_password)).getText().toString();
 
                 if(username.equals("") ||password1.equals("") ||password2.equals("")){
                     Toast.makeText(RegisterActivity.this,"Rellene todos los campos para el registro",

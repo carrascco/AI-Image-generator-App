@@ -7,13 +7,13 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/id_txt_name_login"
+        android:id="@+id/txt_login_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nombre"
+        android:hint="@string/nombre"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/id_txt_password_login"
+        app:layout_constraintBottom_toTopOf="@+id/txt_login_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +21,11 @@
         app:layout_constraintVertical_bias="0.918" />
 
     <EditText
-        android:id="@+id/id_txt_password_login"
+        android:id="@+id/txt_login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Contraseña"
+        android:hint="@string/contrase_a"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,52 +35,52 @@
         app:layout_constraintVertical_bias="0.412" />
 
     <Button
-        android:id="@+id/btn_main_login"
+        android:id="@+id/btn_login_login"
         android:layout_width="162dp"
         android:layout_height="60dp"
-        android:text="Iniciar Sesión"
+        android:text="@string/iniciar_sesi_n"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_txt_password_login"
+        app:layout_constraintTop_toBottomOf="@+id/txt_login_password"
         app:layout_constraintVertical_bias="0.206" />
 
     <TextView
-        android:id="@+id/id_txt_noTienesCuenta"
+        android:id="@+id/txt_main_noTienesCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:text="¿No tienes cuenta? "
+        android:text="@string/no_tienes_cuenta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_main_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_login"
         app:layout_constraintVertical_bias="0.102" />
 
     <CheckBox
-        android:id="@+id/box_main_remember"
+        android:id="@+id/box_login_remember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recordarme"
-        app:layout_constraintBottom_toTopOf="@+id/btn_main_login"
+        android:text="@string/recordarme"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.331"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_txt_password_login"
+        app:layout_constraintTop_toBottomOf="@+id/txt_login_password"
         app:layout_constraintVertical_bias="0.59" />
 
     <TextView
-        android:id="@+id/id_txt_goRegister"
+        android:id="@+id/txt_login_goRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:text="Regístrate"
+        android:text="@string/reg_strate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toEndOf="@+id/id_txt_noTienesCuenta"
+        app:layout_constraintStart_toEndOf="@+id/txt_main_noTienesCuenta"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.681" />
 

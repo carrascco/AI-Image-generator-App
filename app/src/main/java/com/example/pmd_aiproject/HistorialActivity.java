@@ -5,10 +5,12 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.pmd_aiproject.db.DBHelper;
 import com.example.pmd_aiproject.db.ImageDB;
+import com.example.pmd_aiproject.model.Image;
 import com.example.pmd_aiproject.model.ImageAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,6 +47,21 @@ public class HistorialActivity extends AppCompatActivity {
         ListView lv = findViewById(R.id.lv_historial_images);
 
         lv.setAdapter(new ImageAdapter(ImageDB.getUserByUsername(db.getReadableDatabase(),username)));
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(HistorialActivity.this, ImageShowActivity.class);
+
+                Image im = (Image) adapterView.getItemAtPosition(i);
+                intent.putExtra("Image", im.getId());
+                intent.putExtra("prompt", im.getPrompt());
+                intent.putExtra("username:", im.getUser_name());
+                startActivity(intent);
+
+            }
+        });
 
 
 

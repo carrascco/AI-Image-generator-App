@@ -7,11 +7,11 @@
     tools:context=".MenuActivity">
 
     <Button
-        android:id="@+id/btn_pedir_texto"
+        android:id="@+id/btn_menu_pedir_texto"
         android:layout_width="219dp"
         android:layout_height="99dp"
         android:backgroundTint="#101010"
-        android:text="Pedir por texto"
+        android:text="@string/pedir_por_texto"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#000000"
         android:textColorHint="#FFFFFF"
@@ -23,16 +23,16 @@
         app:layout_constraintVertical_bias="0.333" />
 
     <Button
-        android:id="@+id/btn_pedir_img"
+        android:id="@+id/btn_menu_pedir_img"
         android:layout_width="228dp"
         android:layout_height="98dp"
         android:backgroundTint="#000000"
-        android:text="Pedir por Imagen"
+        android:text="@string/pedir_por_imagen"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pedir_texto"
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_pedir_texto"
         app:layout_constraintVertical_bias="0.105" />
 
     <Button
@@ -40,13 +40,13 @@
         android:layout_width="228dp"
         android:layout_height="98dp"
         android:backgroundTint="#000000"
-        android:text="Historial de imagenes"
+        android:text="@string/historial_de_imagenes"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_pedir_img"
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_pedir_img"
         app:layout_constraintVertical_bias="0.193" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -65,11 +65,11 @@
         app:srcCompat="@android:drawable/ic_media_rew" />
 
     <TextView
-        android:id="@+id/id_txt_elige"
+        android:id="@+id/txt_menu_descripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Elija método para recibir su imagen artificialmente creada."
-        app:layout_constraintBottom_toTopOf="@+id/btn_pedir_texto"
+        android:text="@string/elija_m_todo_para_recibir_su_imagen_artificialmente_creada"
+        app:layout_constraintBottom_toTopOf="@+id/btn_menu_pedir_texto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"

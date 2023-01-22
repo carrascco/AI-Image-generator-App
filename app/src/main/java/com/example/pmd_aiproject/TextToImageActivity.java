@@ -46,7 +46,7 @@ public class TextToImageActivity extends AppCompatActivity {
 
         String sharedTxt=i.getStringExtra("shared");
         if(sharedTxt!=null){
-            TextView txt=findViewById(R.id.id_txt_prompt);
+            TextView txt=findViewById(R.id.txt_txt2img_prompt);
             txt.setText(sharedTxt);
         }
         FloatingActionButton returnFromRegister=findViewById(R.id.btn_return_fromText);
@@ -67,7 +67,7 @@ public class TextToImageActivity extends AppCompatActivity {
         generateImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText txt = findViewById(R.id.id_txt_prompt);
+                EditText txt = findViewById(R.id.txt_txt2img_prompt);
                 // ejecutar peticion en Thread y cuando termine ejecutar updateView en el Thread principal y mandar notificacion de que la peticion ha terminado, con la imagen que esta ha generado
                 TextToImageDownloadThread txt2imgPet = new TextToImageDownloadThread(TextToImageActivity.this,txt.getText().toString(),username, TextToImageActivity.this);
                 Thread th = new Thread(txt2imgPet);

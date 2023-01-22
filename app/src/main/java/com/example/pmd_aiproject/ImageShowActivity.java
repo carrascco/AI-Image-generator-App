@@ -30,10 +30,10 @@ public class ImageShowActivity extends AppCompatActivity {
         String username=i.getStringExtra("username:");
 
         byte[] imageRes= ImageDB.getBlobById(DBHelper.DBfabric(ImageShowActivity.this.getApplicationContext()).getReadableDatabase(),idImagen);
-        ImageView img= (ImageView) findViewById(R.id.id_img_shown);
+        ImageView img= (ImageView) findViewById(R.id.iv_imageShow_image);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageRes, 0, imageRes.length);
         img.setImageBitmap(bitmap);
-        TextView txtDesc=findViewById(R.id.id_txt_descrip_image);
+        TextView txtDesc=findViewById(R.id.txt_imageShow_prompt);
         if(!prompt.isEmpty())
             txtDesc.setText("Descripcion: \""+ prompt+"\"");
         else{
@@ -44,7 +44,7 @@ public class ImageShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Nombre del archivo de la imagen descargada
-                String fileName = "image"+(new Random().nextInt(100)+1)+".jpg";
+                String fileName = "image-"+idImagen+".jpg";
                 // Directorio donde se guardará la imagen descargada
                 String directory = "images";
                 // Bitmap que deseas descargar
@@ -60,7 +60,7 @@ public class ImageShowActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent volverDeImagen=new Intent(ImageShowActivity.this, MenuActivity.class);
+                Intent volverDeImagen=new Intent(ImageShowActivity.this, HistorialActivity.class);
                 volverDeImagen.putExtra("usuario:", username);
                 startActivity(volverDeImagen);
             }
